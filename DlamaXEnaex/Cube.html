@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotating Partner Logos Cube</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(180deg, #fffaf3, #f7efe3);
+    }
+
+    .cube-wrap {
+      width: 320px;
+      height: 320px;
+      perspective: 1200px;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spin 14s linear infinite;
+    }
+
+    .cube:hover {
+      animation-play-state: paused;
+    }
+
+    .cube-face {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 12px 28px rgba(17,24,39,.1);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .cube-face img {
+      max-width: 70%;
+      max-height: 70%;
+      object-fit: contain;
+    }
+
+    :root { --cubeZ: 160px; }
+    .cube-face--front  { transform: translateZ(var(--cubeZ)); }
+    .cube-face--back   { transform: rotateY(180deg) translateZ(var(--cubeZ)); }
+    .cube-face--right  { transform: rotateY(90deg)  translateZ(var(--cubeZ)); }
+    .cube-face--left   { transform: rotateY(-90deg) translateZ(var(--cubeZ)); }
+    .cube-face--top    { transform: rotateX(90deg)  translateZ(var(--cubeZ)); }
+    .cube-face--bottom { transform: rotateX(-90deg) translateZ(var(--cubeZ)); }
+
+    @keyframes spin {
+      0%   { transform: rotateX(0) rotateY(0); }
+      25%  { transform: rotateX(0) rotateY(90deg); }
+      50%  { transform: rotateX(0) rotateY(180deg); }
+      75%  { transform: rotateX(0) rotateY(270deg); }
+      100% { transform: rotateX(0) rotateY(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="cube-wrap" id="logoCubeWrap">
+    <div class="cube" id="logoCube">
+      <!-- FRONT: DLAMA -->
+      <button class="cube-face cube-face--front" onclick="openPdfModal('BrochureDlamass.pdf','DLAMA Brochure')">
+        <img src="DSSLogo.jpg" alt="Dlama logo">
+      </button>
+
+      <!-- BACK: DLAMA (repeat) -->
+      <button class="cube-face cube-face--back" onclick="openPdfModal('BrochureDlamass.pdf','DLAMA Brochure')">
+        <img src="DSSLogo.jpg" alt="Dlama logo">
+      </button>
+
+      <!-- RIGHT: ENAEX -->
+      <button class="cube-face cube-face--right" onclick="openPdfModal('AboutEnaexAfrica.pdf','ENAEX Brochure')">
+        <img src="Eneax.png" alt="Enaex logo">
+      </button>
+
+      <!-- LEFT: ENAEX (repeat) -->
+      <button class="cube-face cube-face--left" onclick="openPdfModal('AboutEnaexAfrica.pdf','ENAEX Brochure')">
+        <img src="Eneax.png" alt="Enaex logo">
+      </button>
+
+      <!-- TOP: NOBZTECH -->
+      <button class="cube-face cube-face--top" onclick="openPdfModal('NobzTech-Brochure.pdf','NobzTech Brochure')">
+        <img src="logo-card.png" alt="NobzTech logo">
+      </button>
+
+      <!-- BOTTOM: NOBZTECH (repeat) -->
+      <button class="cube-face cube-face--bottom" onclick="openPdfModal('NobzTech-Brochure.pdf','NobzTech Brochure')">
+        <img src="logo-card.png" alt="NobzTech logo">
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Auto adjust cube depth
+    (function () {
+      const wrap = document.getElementById('logoCubeWrap');
+      const z = Math.round(wrap.clientWidth / 2);
+      wrap.style.setProperty('--cubeZ', z + 'px');
+      window.addEventListener('resize', () => {
+        const nz = Math.round(wrap.clientWidth / 2);
+        wrap.style.setProperty('--cubeZ', nz + 'px');
+      });
+    })();
+
+    // Fallback openPdfModal if not included
+    if (typeof openPdfModal !== 'function') {
+      window.openPdfModal = (url, _title) => window.open(url, '_blank', 'noopener');
+    }
+  </script>
+</body>
+</html>
