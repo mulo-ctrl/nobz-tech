@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Welcome to AgriDay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* prevents scrollbars */
+    }
+
+    /* Styling for the background image*/
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      z-index: -1; /* sends it behind all content */
+    }
+
+    .content {
+      text-align: center;
+      color: #333;
+    }
+
+    .logo img {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .invite-btn {
+      margin-top: 20px;
+      padding: 12px 32px;
+      font-size: 1rem;
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .invite-btn:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <img src="cow-background-ph9i906mw66vxou3.jpg" alt="Background" class="bg-image">
+
+  <div class="content">
+    <div class="logo">
+      <img src="logo-card.png" alt="AgriDay Logo">
+    </div>
+    <h1>Welcome to AgriDay</h1>
+    <button class="invite-btn" onclick="goToInvitation()">Register Now</button>
+  </div>
+
+  <script>
+  function goToInvitation() {
+    window.open("https://forms.gle/YourGoogleFormLinkHere", "_blank");
+  }
+</script>
+
+
+</body>
+</html>
+
