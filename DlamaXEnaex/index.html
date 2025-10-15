@@ -2,82 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Welcome to AgriDay</title>
+  <title>AgriDay Registration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      overflow: hidden; /* prevents scrollbars */
+      justify-content: flex-start;
+      background-color: #f8f8f8;
+      overflow-x: hidden;
     }
 
-    /* ✅ Background image styling */
+    /* Background image styling */
     .bg-image {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* makes image fill the screen */
-      z-index: -1; /* sends it behind all content */
+      object-fit: cover;
+      z-index: -1;
     }
 
-    .content {
+    /* Google Form container */
+    .form-container {
+      margin-top: 60px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      width: 90%;
       text-align: center;
-      color: #333;
     }
 
-    .logo img {
-      width: 250px;
-      height: 250px;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    .invite-btn {
-      margin-top: 20px;
-      padding: 12px 32px;
-      font-size: 1rem;
-      background: #4caf50;
-      color: #fff;
+    /* Smaller Google Form */
+    iframe {
+      width: 100%;
+      height: 380px; /* Compact height to fit content */
       border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      border-radius: 8px;
     }
 
-    .invite-btn:hover {
-      background: #388e3c;
+    /* Image Modals Section */
+    .modal-images {
+      margin: 40px 0 60px 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
     }
+
+    .modal-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 2%;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- ✅ Background image added here -->
+  <!-- Background -->
   <img src="cow-background-ph9i906mw66vxou3.jpg" alt="Background" class="bg-image">
 
-  <div class="content">
-    <div class="logo">
-      <img src="logo-card.png" alt="AgriDay Logo">
-    </div>
-    <h1>Welcome to AgriDay</h1>
-    <button class="invite-btn" onclick="goToInvitation()">Register Now</button>
+  <!-- Google Form Only -->
+  <div class="form-container">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSfTMBrKzMUm09jo6Z7TLphEfjfzmu0_bWnWW8qGQgwIGyVAqg/viewform?embedded=true"
+      frameborder="0" marginheight="0" marginwidth="0">
+      Loading…
+    </iframe>
   </div>
 
+  <!-- Modal Images -->
+  <div class="modal-images">
+    
+    <img src="images (1).jpg" alt="Dlama SS" class="modal-img" onclick="openModal('modal1')">
+    <img src="Eneax.png" alt="Eneax" class="modal-img" onclick="openModal('modal2')">
+    <img src="WhatsApp Image 2025-10-15 at 11.28.43.jpeg" alt="Contact Info" class="modal-img" onclick="openModal('modal3')">
+  </div>
+
+  <!-- Modals -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal1')">&times;</span>
+      <h2>Dlama Smart Skills</h2>
+      <iframe src="BrochureDlamass.pdf" width="100%" height="400px" style="border:none;"></iframe>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span>
+      <h2>Enaex Africa</h2>
+      <iframe src="AboutEnaexAfrica.pdf" width="100%" height="400px" style="border:none;"></iframe>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal3')">&times;</span>
+      <h2>Prayer City</h2>
+      <img src="PrayerCityBrochure.jpeg">
+    </div>
+  </div>
+
+  <!-- JavaScript for modals -->
   <script>
-    function goToInvitation() {
-      window.location.href = "registerPageSE.html";
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Close modal when clicking outside content
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
     }
   </script>
 
