@@ -1,188 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>AgriDay Registration</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriDay | Niobe Tech</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      background-color: #f8f8f8;
-      overflow-x: hidden;
+    :root{
+      --hero-h: 28vh;      /* hero height */
+      --form-h: 40vh;      /* form area height */
+      --mods-h: 26vh;      /* modal-cards area height */
+      --gap: 12px;
     }
 
-    /* Background image styling */
+    html,body{
+      height:100%;
+      margin:0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: #f9f8f4;
+      overflow: hidden; /* prevents page scroll on desktop as requested */
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+    }
+
+    /* Full-screen background (fixed) */
     .bg-image {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-3;
+    }
+    .overlay {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,50,0,0.45);
+      z-index:-2;
     }
 
-    /* Google Form container */
-    .form-container {
-      margin-top: 60px;
-      background: rgba(255, 255, 255, 0.9);
+    main.app {
+      position: relative;
+      z-index: 1;
+      display:flex;
+      flex-direction:column;
+      height:100vh;
+      gap: var(--gap);
+      padding: 22px 28px;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* HERO */
+    .hero {
+      height: var(--hero-h);
+      min-height: 150px;
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 10px 20px;
+    }
+    .hero .inner {
+      max-width:900px;
+      color: #e6f5e0;
+      backdrop-filter: blur(2px);
+    }
+    .hero h1{
+      margin:0;
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+      font-weight:700;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    }
+    .hero p{
+      margin: 10px 0 0;
+      color: #d9ead3;
+      font-size: 0.95rem;
+    }
+    .btn-program {
+      margin-top:10px;
+      display:inline-block;
+      background-color:#4CAF50;
+      color:#fff;
+      padding:8px 18px;
+      border-radius:25px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .btn-program:hover{ transform:translateY(-2px); }
+
+    /* FORM AREA */
+    .form-wrap {
+      height: var(--form-h);
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 0 12px;
+      box-sizing:border-box;
+    }
+
+    .form-container{
+      width: 100%;
+      max-width: 640px;
+      background: rgba(255,255,255,0.93);
       border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 700px;
-      width: 90%;
-      text-align: center;
+      padding: 18px 22px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+      box-sizing:border-box;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
     }
 
-    /* Smaller Google Form */
-    iframe {
-      width: 100%;
-      height: 380px; /* Compact height to fit content */
-      border: none;
-      border-radius: 8px;
+    .form-container h2{
+      margin:0 0 6px;
+      text-align:center;
+      color:#2e4d25;
+      font-weight:700;
     }
 
-    /* Image Modals Section */
-    .modal-images {
-      margin: 40px 0 60px 0;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
+    .form-row {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    .modal-img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 2%;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    .form-control{
+      border-radius:10px;
+      border:1px solid #b5b5a9;
+      padding:10px 12px;
+      box-sizing:border-box;
+      font-size:0.95rem;
     }
 
-    .modal-img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    .btn-submit{
+      background:#4CAF50;
+      border:none;
+      color:#fff;
+      padding:10px 22px;
+      border-radius:22px;
+      font-weight:600;
+      align-self:center;
     }
 
-    /* Modal Styling */
+    /* MODAL / CARDS AREA */
+    .cards-wrap {
+  height: var(--mods-h);
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  padding: 0 12px;
+  box-sizing:border-box;
+  margin-top: 20px; 
+}
+
+    .card-file {
+  width: 140px;
+  min-width:120px;
+  background: rgba(255,255,255,0.95);
+  border-radius:12px;
+  padding:10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  text-align:center;
+  cursor:pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+    .card-file img{
+  width:100px;
+  height:100px;
+  object-fit:contain; /* ensures full logo is visible */
+  border-radius:8px;
+  background-color:#fff; /* optional clean background */
+  padding:6px; /* gives logos space inside */
+}
+
+.card-file small{
+  display:block;
+  margin-top:8px;
+  font-size:0.86rem;
+  color:#2e2e2e;
+}
+    .card-file:hover{ transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
+
+    /* MODAL overlays */
     .modal {
       display: none;
       position: fixed;
-      z-index: 10;
+      z-index: 2000; /* HIGHER than footer */
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0,0,0,0.55);
+      align-items:center;
+      justify-content:center;
+    }
+    .modal .modal-content {
+      background:#fff;
+      border-radius:10px;
+      width: 90%;
+      max-width:720px;
+      padding:18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      max-height:86vh;
+      overflow:auto;
+    }
+    .modal .closeBtn {
+      float:right;
+      font-size:22px;
+      font-weight:700;
+      cursor:pointer;
+      color:#666;
     }
 
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    footer{
+      width:100%;
+      text-align:center;
+      padding:8px 12px;
+      background: rgba(46,46,31,0.65);
+      color:#f0f0f0;
+      font-size:0.85rem;
+      position:relative;
+      z-index: 10; /* lower than modals */
+      border-radius: 8px;
+      align-self:center;
+      max-width: 420px;
+      margin: 8px auto 12px;
     }
 
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
+    /* small screens: allow scrolling and stack */
+    @media (max-height:700px), (max-width:640px){
+      body{ overflow:auto; }
+      main.app{ gap:10px; padding:12px; }
+      .hero{ height: 22vh; }
+      .form-wrap{ height: auto; }
+      .cards-wrap{ height:auto; padding-bottom: 20px; }
     }
-
-    .close:hover {
-      color: #000;
-    }
-
-    .modal-content h2 {
-      margin-top: 0;
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Background -->
-  <img src="cow-background-ph9i906mw66vxou3.jpg" alt="Background" class="bg-image">
+  <!-- background & overlay -->
+  <img src="cow-background-ph9i906mw66vxou3.jpg" class="bg-image" alt="bg">
+  <div class="overlay"></div>
 
-  <!-- Google Form Only -->
-  <div class="form-container">
-    <iframe 
-      src="https://docs.google.com/forms/d/e/1FAIpQLSfTMBrKzMUm09jo6Z7TLphEfjfzmu0_bWnWW8qGQgwIGyVAqg/viewform?embedded=true"
-      frameborder="0" marginheight="0" marginwidth="0">
-      Loading…
-    </iframe>
-  </div>
+  <main class="app">
 
-  <!-- Modal Images -->
-  <div class="modal-images">
-    
-    <img src="images (1).jpg" alt="Dlama SS" class="modal-img" onclick="openModal('modal1')">
-    <img src="Eneax.png" alt="Eneax" class="modal-img" onclick="openModal('modal2')">
-    <img src="WhatsApp Image 2025-10-15 at 11.28.43.jpeg" alt="Contact Info" class="modal-img" onclick="openModal('modal3')">
-  </div>
+    <!-- HERO -->
+    <header class="hero" role="banner">
+      <div class="inner">
+        <h1>Welcome to AgriDay 2025</h1>
+        <p>Celebrating agricultural excellence and empowering future farmers through innovation and sustainability.</p>
+        <a class="btn-program" href="WhatsApp Image 2025-10-15 at 10.00.15_3f5bbfb1.jpg" target="_blank" rel="noopener">View Programme</a>
+      </div>
+    </header>
 
-  <!-- Modals -->
-  <div id="modal1" class="modal">
+    <!-- FORM (custom-styled, posts to Google Form) -->
+    <section class="form-wrap" aria-labelledby="regTitle">
+      <div class="form-container" role="region" aria-label="AgriDay registration form">
+        <h2 id="regTitle">AgriDay Register</h2>
+
+        <!--
+      open your Google Form, inspect the input fields and copy the entry.xxxxx name.
+        -->
+        <form id="agri-form"
+              action="https://docs.google.com/forms/d/e/1FAIpQLSfTMBrKzMUm09jo6Z7TLphEfjfzmu0_bWnWW8qGQgwIGyVAqg/formResponse"
+              method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+          <div class="form-row">
+            <input class="form-control" type="text" name="full name" placeholder="Full Name" required>
+            <input class="form-control" type="text" name="contact number" placeholder="Contact Number" required>
+            <input class="form-control" type="email" name="email address" placeholder="Email Address" required>
+            <input class="form-control" type="text" name="organization/farm name" placeholder="Organization / Farm Name">
+          </div>
+
+          <div style="margin-top:8px; text-align:center;">
+            <button class="btn btn-submit" type="submit">Submit</button>
+          </div>
+
+          <!-- hidden iframe used to POST without redirecting current page -->
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+          <div id="thankMsg" style="margin-top:10px; text-align:center; font-weight:700; color:#2e7d32; display:none;">
+            Thank you — your submission was sent!
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- CARDS (modal triggers) -->
+    <section class="cards-wrap" aria-label="Partners / Brochures">
+      <div class="card-file" onclick="openModal('modal1')">
+        <img src="images (1).jpg" alt="Dlama SS">
+        <small>Dlama Smart Skills</small>
+      </div>
+
+      <div class="card-file" onclick="openModal('modal2')">
+        <img src="Eneax.png" alt="Enaex">
+        <small>Enaex Africa</small>
+      </div>
+
+      <div class="card-file" onclick="openModal('modal3')">
+        <img src="WhatsApp Image 2025-10-15 at 11.28.43.jpeg" alt="Prayer City">
+        <small>Prayer City</small>
+      </div>
+    </section>
+
+    <!-- footer placed after content (below cards) -->
+    <footer>&copy; 2025 NobzTech. All Rights Reserved.</footer>
+
+  </main>
+
+  <!-- MODALS -->
+  <div id="modal1" class="modal" role="dialog" aria-hidden="true">
     <div class="modal-content">
-      <span class="close" onclick="closeModal('modal1')">&times;</span>
-      <h2>Dlama Smart Skills</h2>
-      <iframe src="BrochureDlamass.pdf" width="100%" height="400px" style="border:none;"></iframe>
+      <span class="closeBtn" onclick="closeModal('modal1')">&times;</span>
+      <h3>Dlama Smart Skills</h3>
+      <iframe src="BrochureDlamass.pdf" width="100%" height="420px" style="border:none;"></iframe>
     </div>
   </div>
 
-  <div id="modal2" class="modal">
+  <div id="modal2" class="modal" role="dialog" aria-hidden="true">
     <div class="modal-content">
-      <span class="close" onclick="closeModal('modal2')">&times;</span>
-      <h2>Enaex Africa</h2>
-      <iframe src="AboutEnaexAfrica.pdf" width="100%" height="400px" style="border:none;"></iframe>
+      <span class="closeBtn" onclick="closeModal('modal2')">&times;</span>
+      <h3>Enaex Africa</h3>
+      <iframe src="AboutEnaexAfrica.pdf" width="100%" height="420px" style="border:none;"></iframe>
     </div>
   </div>
 
-  <div id="modal3" class="modal">
+  <div id="modal3" class="modal" role="dialog" aria-hidden="true">
     <div class="modal-content">
-      <span class="close" onclick="closeModal('modal3')">&times;</span>
-      <h2>Prayer City</h2>
-      <img src="PrayerCityBrochure.jpeg">
+      <span class="closeBtn" onclick="closeModal('modal3')">&times;</span>
+      <h3>Prayer City</h3>
+      <img src="PrayerCityBrochure.jpeg" alt="Prayer City Brochure" style="width:100%; border-radius:8px;">
     </div>
   </div>
 
-  <!-- JavaScript for modals -->
+  <!-- JS -->
   <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = 'block';
+    /* Modal controls */
+    function openModal(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.style.display = 'flex';
+      el.setAttribute('aria-hidden','false');
     }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
+    function closeModal(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.style.display = 'none';
+      el.setAttribute('aria-hidden','true');
     }
-
-    // Close modal when clicking outside content
-    window.onclick = function(event) {
+    window.addEventListener('click', function(e){
       const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-    }
+      modals.forEach(m => { if(e.target === m) m.style.display = 'none'; });
+    });
+
+    /* Form thank-you feedback: Google Forms returns a redirect,
+       so we use a hidden iframe target to POST without leaving page..
+    */
+    const form = document.getElementById('agri-form');
+    const thankMsg = document.getElementById('thankMsg');
+    let submitted = false;
+
+    // When hidden iframe loads, show thank you (best-effort)
+    document.getElementById('hidden_iframe').addEventListener('load', function(){
+      if(submitted){
+        thankMsg.style.display = 'block';
+        form.reset();
+        submitted = false;
+      }
+    });
+
+    // Accessibility: close modal on ESC
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        document.querySelectorAll('.modal').forEach(m => m.style.display='none');
+      }
+    });
   </script>
 
 </body>
 </html>
+
+
 
