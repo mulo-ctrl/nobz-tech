@@ -3,88 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AgriDay | Niobe Tech</title>
+  <title>AgriDay</title>
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
+  <style>
+    :root{
+      --hero-h: 28vh;      /* hero height */
+      --form-h: 40vh;      /* form area height */
+      --mods-h: 26vh;      /* modal-cards area height */
+      --gap: 12px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f8f4;
       color: #333;
+      background: #f9f8f4;
+      overflow: hidden; /* prevents page scroll on desktop as requested */
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
     }
 
-    /* Hero Section */
-    .hero {
-      background: url('cow-background-ph9i906mw66vxou3.jpg') center/cover no-repeat;
-      height: 60vh;
-      min-height: 500px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+    /* Full-screen background (fixed) */
+    .bg-image {
+      position: fixed;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-3;
+    }
+    .overlay {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,50,0,0.45);
+      z-index:-2;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 50, 0, 0.5); /* Earthy overlay for contrast */
-      z-index: 0;
-    }
-
-    .hero-content {
+    main.app {
       position: relative;
       z-index: 1;
-      color: #fff;
+      display:flex;
+      flex-direction:column;
+      height:100vh;
+      gap: var(--gap);
+      padding: 22px 28px;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: flex-start;
     }
 
-    .hero .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 40px 50px;
-      border-radius: 15px;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      max-width: 700px;
-      margin-bottom: 60px;
+    /* HERO */
+    .hero {
+      height: var(--hero-h);
+      min-height: 150px;
+      width: 100%;
+      display:contents;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 10px 20px;
     }
-
-    .hero-logo {
-      width: 130px;
-      margin-bottom: 15px;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
+    .hero .inner {
+      max-width:900px;
       color: #e6f5e0;
+      backdrop-filter: blur(2px);
     }
-
-    .hero p {
-      font-size: 1rem;
-      color: #d9ead3;
-      margin-top: 25px;
-    }
-
-    .btn-program {
-      background-color: #4CAF50;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 25px;
+    .hero h1{
+      margin:0;
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+      font-weight:700;
       color: #fff;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
     }
-
-    .btn-program:hover {
-      background-color: #3e8e41;
-      transform: translateY(-2px);
+    .hero p{
+      margin: 10px 0 0;
+      color: #d9ead3;
+      font-size: 0.95rem;
     }
+    .btn-program {
+      margin-top:10px;
+      display:inline-block;
+      background-color:#4CAF50;
+      color:#fff;
+      padding:8px 18px;
+      border-radius:25px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .btn-program:hover{ transform:translateY(-2px); }
 
     /* FORM AREA */
     .form-wrap {
@@ -109,6 +125,8 @@
       flex-direction:column;
       justify-content:center;
       gap:10px;
+      margin-top: 40px;
+      margin-bottom: 100px;
     }
 
     .form-container h2{
@@ -143,88 +161,113 @@
     }
 
     /* MODAL / CARDS AREA */
-    .cards-wrap {
-  height: var(--mods-h);
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  padding: 0 12px;
-  box-sizing:border-box;
-  margin-top: 20px; 
-}
+    /* ===== Cards ===== */
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
 
-    .card-file {
-  width: 140px;
-  min-width:120px;
-  background: rgba(255,255,255,0.95);
-  border-radius:12px;
-  padding:10px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-  text-align:center;
-  cursor:pointer;
-  transition: transform .18s ease, box-shadow .18s ease;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-    .card-file img{
-  width:100px;
-  height:100px;
-  object-fit:contain; /* ensures full logo is visible */
-  border-radius:8px;
-  background-color:#fff; /* optional clean background */
-  padding:6px; /* gives logos space inside */
-}
+    .card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      width: 200px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 260px;
+      cursor: pointer;
+    }
 
-.card-file small{
-  display:block;
-  margin-top:8px;
-  font-size:0.86rem;
-  color:#2e2e2e;
-}
-    .card-file:hover{ transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
 
-    /* MODAL overlays */
+    .card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin: 0 auto 10px auto;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #2b502f;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* ===== Modals ===== */
     .modal {
       display: none;
       position: fixed;
-      z-index: 2000; /* HIGHER than footer */
+      z-index: 10;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.55);
-      align-items:center;
-      justify-content:center;
-    }
-    .modal .modal-content {
-      background:#fff;
-      border-radius:10px;
-      width: 90%;
-      max-width:720px;
-      padding:18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-      max-height:86vh;
-      overflow:auto;
-    }
-    .modal .closeBtn {
-      float:right;
-      font-size:22px;
-      font-weight:700;
-      cursor:pointer;
-      color:#666;
+      background-color: rgba(0,0,0,0.6);
     }
 
- footer {
-      text-align: center;
-      background-color: #2e2e1f;
-      color: #dcdcdc;
-      padding: 15px 0;
-      font-size: 0.8rem;
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .close {
+      color: #333;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #d32f2f;
+    }
+    footer{
+      width:100%;
+      text-align:center;
+      padding:8px 12px;
+      background: rgba(46,46,31,0.65);
+      color:#f0f0f0;
+      font-size:0.85rem;
+      position:relative;
+      z-index: 10; /* lower than modals */
+      border-radius: 8px;
+      align-self:center;
+      max-width: 420px;
+      margin: 8px auto 12px;
     }
 
     /* small screens: allow scrolling and stack */
@@ -239,16 +282,21 @@
 </head>
 <body>
 
+  <!-- background & overlay -->
+  <img src="cow-background-ph9i906mw66vxou3.jpg" class="bg-image" alt="bg">
+  <div class="overlay"></div>
 
-   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-        <div class="container">
-      <h1>Welcome to AgriDay 2025</h1>
-      <p>AgriDay 2025 celebrates the achievements of learners in the Animal and Plant Production Learnership Programs, empowering youth with hands-on agricultural and entrepreneurial skills. The event showcases innovation, sustainability, and transformation in farming. It’s a gathering where learners, stakeholders, and industry leaders connect to shape a greener, more inclusive future for agriculture.</p>
+  <main class="app">
+
+    <!-- HERO -->
+    <header class="hero" role="banner">
+      <div class="inner">
+           <h1>Welcome to AgriDay 2025</h1>
+      <p>AgriDay 2025 celebrates the achievements of learners in the Animal and Plant Production Learnership Programs, empowering youth with hands-on agricultural and entrepreneurial skills. The event showcases innovation, sustainability, and transformation in farming. It’s a gathering where learners, stakeholders, and industry leaders connect to shape a greener, more inclusive future for agriculture.
+      </p>
       <a href="WhatsApp Image 2025-10-15 at 10.00.15_3f5bbfb1.jpg" class="btn-program" view>View Programme</a>
     </div>
-  </section>
+    </header>
 
     <!-- FORM (custom-styled, posts to Google Form) -->
     <section class="form-wrap" aria-labelledby="regTitle">
@@ -282,30 +330,32 @@
       </div>
     </section>
 
-    <!-- CARDS (modal triggers) -->
-    <section class="cards-wrap" aria-label="Partners / Brochures">
-      <div class="card-file" onclick="openModal('modal1')">
-        <img src="images (1).jpg" alt="Dlama SS">
-        <small>Dlama Smart Skills</small>
-      </div>
+    <!-- ===== Partner Cards ===== -->
+  <div class="cards">
+    <div class="card" onclick="openModal('modal1')">
+      <img src="images (1).jpg" alt="Dlama Smart Skills">
+      <h3>Dlama Smart Skills</h3>
+      <p>Youth Learnership and Development Partner</p>
+    </div>
 
-      <div class="card-file" onclick="openModal('modal2')">
-        <img src="Eneax.png" alt="Enaex">
-        <small>Enaex Africa</small>
-      </div>
+    <div class="card" onclick="openModal('modal2')">
+      <img src="Eneax.png" alt="Enaex Africa">
+      <h3>Enaex Africa</h3>
+      <p>Innovative Blasting and Mining Leader</p>
+    </div>
 
-      <div class="card-file" onclick="openModal('modal3')">
-        <img src="WhatsApp Image 2025-10-15 at 11.28.43.jpeg" alt="Prayer City">
-        <small>Prayer City</small>
-      </div>
-    </section>
+    <div class="card" onclick="openModal('modal3')">
+      <img src="Prayer City card logo.jpeg" alt="Prayer City">
+      <h3>Prayer City</h3>
+      <p>Faith-based Community Empowerment Center</p>
+    </div>
+  </div>
 
-    <!-- footer placed after content (below cards) -->
-    <footer>&copy; 2025 NobzTech. All Rights Reserved.</footer>
+    
 
   </main>
 
-  <!-- MODALS -->
+    <!-- MODALS -->
   <div id="modal1" class="modal" role="dialog" aria-hidden="true">
     <div class="modal-content">
       <span class="closeBtn" onclick="closeModal('modal1')">&times;</span>
@@ -329,6 +379,9 @@
       <img src="PrayerCityBrochure.jpeg" alt="Prayer City Brochure" style="width:100%; border-radius:8px;">
     </div>
   </div>
+
+  <!-- footer placed after content (below cards) -->
+    <footer>&copy; 2025 NobzTech. All Rights Reserved.</footer>
 
   <!-- JS -->
   <script>
@@ -376,6 +429,5 @@
 
 </body>
 </html>
-
 
 
