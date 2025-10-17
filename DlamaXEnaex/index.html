@@ -253,7 +253,6 @@
     @media (max-height:700px), (max-width:640px){
       body{ overflow:auto; }
       main.app{ gap:10px; padding:12px; }
-      .hero{ height: 22vh; }
       .form-wrap{ height: auto; }
       .cards-wrap{ height:auto; padding-bottom: 20px; }
     }
@@ -274,7 +273,7 @@
         AgriDay 2025 celebrates the achievements of learners in the Animal and Plant Production Learnership Programs, empowering youth with hands-on agricultural and entrepreneurial skills.<br>
         The event showcases innovation, sustainability, and transformation in farming. It’s a gathering where learners, stakeholders, and industry leaders connect to shape a greener, more inclusive future for agriculture.
       </p>
-      <a href="WhatsApp Image 2025-10-15 at 10.00.15_3f5bbfb1.jpg" class="btn-program">View Programme</a>
+      <a onclick="openModal('modal4')" class="btn-program">View Programme</a>
     </header>
 
     <!-- FORM -->
@@ -348,6 +347,14 @@
       <span class="closeBtn" onclick="closeModal('modal3')">&times;</span>
       <h3>Prayer City</h3>
       <img src="PrayerCityBrochure.jpeg" alt="Prayer City Brochure" style="width:100%; border-radius:8px;">
+    </div>
+  </div>
+
+   <div id="modal4" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <span class="closeBtn" onclick="closeModal('modal4')">&times;</span>
+      <h3>Programme Brochure</h3>
+      <img src="AgriDay Programme.jpeg" alt="Programme Brochure" style="width:100%; border-radius:8px;">
     </div>
   </div>
 
