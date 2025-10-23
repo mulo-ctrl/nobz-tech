@@ -20,11 +20,10 @@
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* ensures full height */
+      min-height: 100vh;
       align-items: stretch;
     }
 
-    /* Background */
     .bg-image {
       position: fixed;
       top: 0; left: 0;
@@ -43,19 +42,18 @@
     }
 
     main.app {
-      flex: 1; /* pushes footer to bottom if content is short */
+      flex: 1;
       position: relative;
       z-index: 1;
       display: flex;
       flex-direction: column;
       gap: var(--gap);
-      padding: 22px 28px 80px; /* bottom padding for spacing before footer */
+      padding: 22px 28px 80px;
       box-sizing: border-box;
       align-items: center;
       justify-content: flex-start;
     }
 
-    /* HERO */
     .hero {
       width: 100%;
       text-align: center;
@@ -93,7 +91,6 @@
       transform: translateY(-2px);
     }
 
-    /* FORM AREA */
     .form-container {
       width: 100%;
       max-width: 640px;
@@ -143,7 +140,6 @@
       transform: translateY(-2px);
     }
 
-    /* CARDS */
     .cards {
       display: flex;
       justify-content: center;
@@ -193,7 +189,6 @@
       line-height: 1.4;
     }
 
-    /* MODALS */
     .modal {
       display: none;
       position: fixed;
@@ -238,7 +233,6 @@
       color: #d32f2f;
     }
 
-    /* SMART STICKY FOOTER */
     footer {
       width: 100%;
       text-align: center;
@@ -246,10 +240,9 @@
       background: rgba(46,46,31,0.85);
       color: #f0f0f0;
       font-size: 0.8rem;
-      margin-top: auto; /* pushes footer down */
+      margin-top: auto;
     }
 
-     /* small screens: allow scrolling and stack */
     @media (max-height:700px), (max-width:640px){
       body{ overflow:auto; }
       main.app{ gap:10px; padding:12px; }
@@ -260,165 +253,131 @@
 </head>
 <body>
 
-  <!-- Background & Overlay -->
   <img src="cow-background-ph9i906mw66vxou3.jpg" class="bg-image" alt="bg">
   <div class="overlay"></div>
 
   <main class="app">
 
-    <!-- HERO -->
     <header class="hero">
       <h1>Welcome to AgriDay 2025</h1>
       <p>
         AgriDay 2025 celebrates the achievements of learners in the Animal and Plant Production Learnership Programs, empowering youth with hands-on agricultural and entrepreneurial skills.<br>
-        The event showcases innovation, sustainability, and transformation in farming. It’s a gathering where learners, stakeholders, and industry leaders connect to shape a greener, more inclusive future for agriculture.
+        The event showcases innovation, sustainability, and transformation in farming.
       </p>
       <a onclick="openModal('modal4')" class="btn-program">View Programme</a>
     </header>
 
-    <!-- FORM -->
+    <!-- ✅ FIXED FORM -->
     <section class="form-wrap" aria-labelledby="regTitle">
       <div class="form-container">
         <h2 id="regTitle">AgriDay Register</h2>
-        <form id="agri-form"
-              action="https://docs.google.com/forms/d/e/1FAIpQLSfTMBrKzMUm09jo6Z7TLphEfjfzmu0_bWnWW8qGQgwIGyVAqg/formResponse"
-              method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+        <form id="agri-form" action="https://script.google.com/macros/s/AKfycbyAnhHJK1pe_pVuaUU0i67_TyrY23j_oJ_3SX_6UJ1mk1cIhLbYE1tiws9gF4R9Am4UMw/exec" method="POST">
           <div class="form-row">
-            <input class="form-control" type="text" name="entry.994542300" placeholder="Full Name" required>
-            <input class="form-control" type="text" name="entry.974207296" placeholder="Contact Number" required>
-            <input class="form-control" type="email" name="entry.455118839" placeholder="Email Address" required>
-            <input class="form-control" type="text" name="entry.2033762432" placeholder="Organization / Farm Name">
+            <input class="form-control" type="text" name="fullName" placeholder="Full Name" required>
+            <input class="form-control" type="text" name="contactNumber" placeholder="Contact Number" required>
+            <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+            <input class="form-control" type="text" name="organization" placeholder="Organization / Farm Name">
           </div>
 
           <div style="margin-top:8px; text-align:center;">
             <button class="btn btn-submit" type="submit">Submit</button>
           </div>
 
-          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
           <div id="thankMsg" style="margin-top:10px; text-align:center; font-weight:700; color:#2e7d32; display:none;">
             Thank you — your submission was sent!
           </div>
         </form>
       </div>
-</section>
-    
-
-    
+    </section>
 
     <!-- VIDEO SECTION -->
-
-<section class="video-section text-center py-5" style="background: transparent; color: #fff;">
-<div class="container">
-<p class="mb-4" style="max-width:700px; margin:auto;">
-Watch this short video to learn more about the project.
-</p>
-
-<video
-controls
-preload="auto"
-style="width:100%; max-width:800px; border:2px solid ; border-radius:10px;"
->
-<source src="videos/AgriDayvideo.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-</div>
-</section>
+    <section class="video-section text-center py-5" style="background: transparent; color: #fff;">
+      <div class="container">
+        <p class="mb-4" style="max-width:700px; margin:auto;">
+          Watch this short video to learn more about the project.
+        </p>
+        <video controls preload="auto" style="width:100%; max-width:800px; border:2px solid; border-radius:10px;">
+          <source src="videos/AgriDayvideo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
 
     <!-- CARDS -->
     <div class="cards">
-    <div class="card" onclick="openModal('modal1')">
-      <img src="images (1).jpg" alt="Dlama Smart Skills">
-      <h3>Dlama Smart Skills</h3>
-      <p>Youth Learnership and Development Partner</p>
-    </div>
+      <div class="card" onclick="openModal('modal1')">
+        <img src="images (1).jpg" alt="Dlama Smart Skills">
+        <h3>Dlama Smart Skills</h3>
+        <p>Youth Learnership and Development Partner</p>
+      </div>
 
-    <div class="card" onclick="openModal('modal2')">
-      <img src="Eneax.png" alt="Enaex Africa">
-      <h3>Enaex Africa</h3>
-      <p>Innovative Blasting and Mining Leader</p>
-    </div>
+      <div class="card" onclick="openModal('modal2')">
+        <img src="Eneax.png" alt="Enaex Africa">
+        <h3>Enaex Africa</h3>
+        <p>Innovative Blasting and Mining Leader</p>
+      </div>
 
-    <div class="card" onclick="openModal('modal3')">
-      <img src="Prayer City card logo.jpeg" alt="Prayer City">
-      <h3>Prayer City</h3>
-      <p>Faith-based Community Empowerment Center</p>
+      <div class="card" onclick="openModal('modal3')">
+        <img src="Prayer City card logo.jpeg" alt="Prayer City">
+        <h3>Prayer City</h3>
+        <p>Faith-based Community Empowerment Center</p>
+      </div>
     </div>
-  </div>
 
   </main>
 
   <!-- MODALS -->
-   <div id="modal1" class="modal" role="dialog" aria-hidden="true">
+  <div id="modal1" class="modal">
     <div class="modal-content">
       <span class="closeBtn" onclick="closeModal('modal1')">&times;</span>
       <h3>Dlama Smart Skills</h3>
-      <iframe src="BrochureDlamass.pdf" width="100%" height="420px" style="border:none;"></iframe>
+      <iframe src="BrochureDlamass.pdf"></iframe>
     </div>
   </div>
 
-  <div id="modal2" class="modal" role="dialog" aria-hidden="true">
+  <div id="modal2" class="modal">
     <div class="modal-content">
       <span class="closeBtn" onclick="closeModal('modal2')">&times;</span>
       <h3>Enaex Africa</h3>
-      <iframe src="AboutEnaexAfrica.pdf" width="100%" height="420px" style="border:none;"></iframe>
+      <iframe src="AboutEnaexAfrica.pdf"></iframe>
     </div>
   </div>
 
-  <div id="modal3" class="modal" role="dialog" aria-hidden="true">
+  <div id="modal3" class="modal">
     <div class="modal-content">
       <span class="closeBtn" onclick="closeModal('modal3')">&times;</span>
       <h3>Prayer City</h3>
-      <img src="PrayerCityBrochure.jpeg" alt="Prayer City Brochure" style="width:100%; border-radius:8px;">
+      <img src="PrayerCityBrochure.jpeg" style="width:100%; border-radius:8px;">
     </div>
   </div>
 
-   <div id="modal4" class="modal" role="dialog" aria-hidden="true">
+  <div id="modal4" class="modal">
     <div class="modal-content">
       <span class="closeBtn" onclick="closeModal('modal4')">&times;</span>
       <h3>Programme Brochure</h3>
-      <img src="AgriDay Programme.jpeg" alt="Programme Brochure" style="width:100%; border-radius:8px;">
+      <img src="AgriDay Programme.jpeg" style="width:100%; border-radius:8px;">
     </div>
   </div>
 
-  <!-- SMART FOOTER -->
-  <footer>&copy; 2025 <a href="https://www.nobztech.co.za/" target="_blank">NobzTech.</a>. All Rights Reserved</footer>
+  <footer>&copy; 2025 <a href="https://www.nobztech.co.za/" target="_blank">NobzTech</a>. All Rights Reserved.</footer>
 
   <script>
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.style.display = 'flex';
-    }
+    function openModal(id){ document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id){ document.getElementById(id).style.display = 'none'; }
+    window.addEventListener('click', e => { if(e.target.classList.contains('modal')) e.target.style.display='none'; });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal').forEach(m=>m.style.display='none'); });
 
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.style.display = 'none';
-    }
-
-    window.addEventListener('click', function(e) {
-      document.querySelectorAll('.modal').forEach(m => { if (e.target === m) m.style.display = 'none'; });
-    });
-
-    const form = document.getElementById('agri-form');
-    const thankMsg = document.getElementById('thankMsg');
-    let submitted = false;
-
-    document.getElementById('hidden_iframe').addEventListener('load', function() {
-      if (submitted) {
-        thankMsg.style.display = 'block';
-        form.reset();
-        submitted = false;
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-      }
+    // ✅ Send to Google Sheet
+    document.getElementById("agri-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      fetch(form.action, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          form.reset();
+          document.getElementById("thankMsg").style.display = "block";
+        })
+        .catch(() => alert("Something went wrong. Please try again."));
     });
   </script>
 </body>
 </html>
-
-
